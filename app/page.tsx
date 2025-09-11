@@ -50,7 +50,7 @@ function SignInForm() {
         style={{
           aspectRatio: 1 / 1,
         }}
-        className="logo-img opacity-75 max-h-60 max-w-60 w-full aspect-square self-center"
+        className="logo-img opacity-80 max-h-60 max-w-60 w-full aspect-square self-center"
         />
         <CardHeader>
           <CardTitle className="text-3xl font-bold text-center">SyncSpace</CardTitle>
