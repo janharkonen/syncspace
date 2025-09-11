@@ -1,0 +1,13 @@
+services:
+
+  syncspace:
+    build:
+      context: .
+    container_name: syncspace
+    restart: unless-stopped
+    expose:
+      - 3000
+
+networks:
+  default:
+    name: syncspace-network
