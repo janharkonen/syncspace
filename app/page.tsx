@@ -9,6 +9,7 @@ import Link from "next/link";
 import { SignUpButton } from "@clerk/nextjs";
 import { SignInButton } from "@clerk/nextjs";
 import { UserButton } from "@clerk/nextjs";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
   return (
@@ -37,14 +38,14 @@ function SignInForm() {
     <div className="flex flex-col gap-8 w-96 mx-auto">
       <p>Log in to see the numbers</p>
       <SignInButton mode="modal">
-        <button className="bg-foreground text-background px-4 py-2 rounded-md">
+        <Button className="bg-foreground text-background px-4 py-2 rounded-md">
           Sign in
-        </button>
+        </Button>
       </SignInButton>
       <SignUpButton mode="modal">
-        <button className="bg-foreground text-background px-4 py-2 rounded-md">
+        <Button className="bg-foreground text-background px-4 py-2 rounded-md">
           Sign up
-        </button>
+        </Button>
       </SignUpButton>
     </div>
   );
