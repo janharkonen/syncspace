@@ -6,7 +6,6 @@ import {
   useQuery,
 } from "convex/react";
 import { api } from "../convex/_generated/api";
-import Header from "@/components/header/Header";
 import SignInForm from "@/components/signinform/SignInForm";
 import Sidebar from "@/components/sidebar/Sidebar";
 
@@ -15,7 +14,7 @@ export default function Home() {
     <>
       <main className="flex flex-col h-screen flex-grow">
         <Authenticated>
-          <Header />
+          <div className="flex flex-row h-full">
             <Sidebar className="w-64"/>
             <div className="flex-grow">
               <Content />
