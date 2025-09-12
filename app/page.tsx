@@ -3,25 +3,23 @@
 import {
   Authenticated,
   Unauthenticated,
+  useQuery,
 } from "convex/react";
 import { api } from "../convex/_generated/api";
 import Link from "next/link";
 import { SignUpButton } from "@clerk/nextjs";
 import { SignInButton } from "@clerk/nextjs";
-import { UserButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardFooter, CardTitle } from "@/components/ui/card";
 import DarkModeToggle from "@/components/header/DarkModeToggle";
+import Header from "@/components/header/Header";
 
 export default function Home() {
   return (
     <>
       <main className="flex flex-col h-screen flex-grow">
         <Authenticated>
-          <header className="sticky top-0 z-10 bg-background p-4 border-b-2 border-slate-200 dark:border-slate-800 flex flex-row justify-between items-center">
-          
-            <UserButton />
-          </header>
+          <Header />
           <Content />
         </Authenticated>
         <Unauthenticated>
@@ -68,13 +66,14 @@ function SignInForm() {
 }
 
 function Content() {
-  
+  const { memoEntries } = useQuery(api.memoFunctions.memoItems) ?? { memoEntries: [] };
   return (
     <div className="flex flex-col gap-8 max-w-lg mx-auto">
-      <p>
-        Click the button below and open this page in another window - this data
-        is persisted in the Convex cloud database!
-      </p>
+        {memoEntries.map((memoEntry) => (
+          <div key={memoEntry._id}>
+            <h2>{memoEntry.memoname}</h2>
+          </div>
+        ))}
     </div>
   );
 }

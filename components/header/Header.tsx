@@ -21,17 +21,17 @@ export default function Header() {
       >
         <div className="flex flex-row gap-2 items-center flex-grow">
             <Image 
-            src="https://picapi.janharkonen.fi/api/pics/837dfbb7dbc74c08b313dcd68c076115.png?BG=92" 
-            alt="Marmemo logo" 
+            src="https://picapi.janharkonen.fi/api/pics/3719108934fb4269a77a48b10c61955a.png?BG=110" 
+            alt="SyncSpace logo" 
             style={{
                 aspectRatio: 1 / 1,
             }}
             width={48} 
             height={48}
-            className="rounded-full aspect-square w-12 h-12 dark:invert"
+            className="aspect-square w-12 h-12 dark:invert"
             />
             <span className="">
-                Marmemo
+                SyncSpace
             </span>
         </div>
         <div className="flex flex-row gap-2">

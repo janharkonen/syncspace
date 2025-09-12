@@ -2,7 +2,7 @@
   "lockfileVersion": 1,
   "workspaces": {
     "": {
-      "name": "marmemo",
+      "name": "syncspace",
       "dependencies": {
         "@clerk/clerk-react": "^5.25.0",
         "@clerk/nextjs": "^6.12.6",
