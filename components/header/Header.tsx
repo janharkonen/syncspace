@@ -1,6 +1,5 @@
 import DarkModeToggle from "./DarkModeToggle";
 import { UserButton } from "@clerk/nextjs";
-import Image from "next/image";
 
 export default function Header() {
     return (
@@ -20,15 +19,13 @@ export default function Header() {
       "
       >
         <div className="flex flex-row gap-2 items-center flex-grow">
-            <Image 
-            src="https://picapi.janharkonen.fi/api/pics/3719108934fb4269a77a48b10c61955a.png?BG=110" 
+            <img 
+            src="https://picapi.janharkonen.fi/api/pics/3719108934fb4269a77a48b10c61955a.png?BGh=120" 
             alt="SyncSpace logo" 
             style={{
-                aspectRatio: 1 / 1,
+                aspectRatio: 10 / 12,
             }}
-            width={48} 
-            height={48}
-            className="aspect-square w-12 h-12 dark:invert"
+            className="logo-img aspect-square max-w-10 max-h-12 flex-grow self-center"
             />
             <span className="">
                 SyncSpace
