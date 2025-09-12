@@ -1,9 +1,21 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import { NextResponse } from 'next/server'
+
 
 const isProtectedRoute = createRouteMatcher(["/server"]);
 
 export default clerkMiddleware(async (auth, req) => {
-  if (isProtectedRoute(req)) await auth.protect();
+  const { isAuthenticated } = await auth()
+
+  const url = new URL(req.url);
+  const pathname = url.pathname;
+  if (!isAuthenticated && pathname === "/spaces") {
+    return NextResponse.redirect(new URL('/', req.url))
+  } else if (isAuthenticated && pathname === "/") {
+    return NextResponse.redirect(new URL('/spaces', req.url))
+  } else {
+    return NextResponse.next()
+  }
 });
 
 export const config = {

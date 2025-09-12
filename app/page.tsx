@@ -3,23 +3,15 @@
 import {
   Authenticated,
   Unauthenticated,
-  useQuery,
 } from "convex/react";
-import { api } from "../convex/_generated/api";
 import SignInForm from "@/components/signinform/SignInForm";
-import Sidebar from "@/components/sidebar/Sidebar";
 
 export default function Home() {
   return (
     <>
       <main className="flex flex-col h-screen flex-grow">
         <Authenticated>
-          <div className="flex flex-row h-full">
-            <Sidebar className="w-64"/>
-            <div className="flex-grow">
-              <Content />
-            </div>
-          </div>
+          <h1 className="text-2xl font-bold flex justify-center items-center">You&apos;re not supposed to see this</h1>
         </Authenticated>
         <Unauthenticated>
           <div className="w-full h-screen flex justify-center items-center">
@@ -28,19 +20,5 @@ export default function Home() {
         </Unauthenticated>
       </main>
     </>
-  );
-}
-
-
-function Content() {
-  const { memoEntries } = useQuery(api.memoFunctions.memoItems) ?? { memoEntries: [] };
-  return (
-    <div className="flex flex-col gap-8 max-w-lg mx-auto">
-        {memoEntries.map((memoEntry) => (
-          <div key={memoEntry._id}>
-            <h2>{memoEntry.memoname}</h2>
-          </div>
-        ))}
-    </div>
   );
 }
