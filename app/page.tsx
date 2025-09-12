@@ -8,6 +8,7 @@ import {
 import { api } from "../convex/_generated/api";
 import Header from "@/components/header/Header";
 import SignInForm from "@/components/signinform/SignInForm";
+import Sidebar from "@/components/sidebar/Sidebar";
 
 export default function Home() {
   return (
@@ -15,7 +16,11 @@ export default function Home() {
       <main className="flex flex-col h-screen flex-grow">
         <Authenticated>
           <Header />
-          <Content />
+            <Sidebar className="w-64"/>
+            <div className="flex-grow">
+              <Content />
+            </div>
+          </div>
         </Authenticated>
         <Unauthenticated>
           <div className="w-full h-screen flex justify-center items-center">
