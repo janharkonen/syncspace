@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   title: "SyncSpace",
   description: "Collaborative workspace app",
   icons: {
-    icon: "https://picapi.janharkonen.fi/api/pics/7d667415d4724493bafe6f32e5ef44eb.png",
+    icon: "https://picapi.janharkonen.fi/api/pics/3719108934fb4269a77a48b10c61955a.png",
   },
 };
 
