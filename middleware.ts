@@ -9,10 +9,10 @@ export default clerkMiddleware(async (auth, req) => {
 
   const url = new URL(req.url);
   const pathname = url.pathname;
-  if (!isAuthenticated && pathname === "/spaces") {
+  if (!isAuthenticated && pathname === "/workspaces") {
     return NextResponse.redirect(new URL('/', req.url))
   } else if (isAuthenticated && pathname === "/") {
-    return NextResponse.redirect(new URL('/spaces', req.url))
+    return NextResponse.redirect(new URL('/workspaces', req.url))
   } else {
     return NextResponse.next()
   }

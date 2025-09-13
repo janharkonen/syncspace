@@ -5,7 +5,7 @@ import { query } from "./_generated/server";
 // See https://docs.convex.dev/functions for more.
 
 // You can read data from the database via a query:
-export const memoItems = query({
+export const workspaceItems = query({
 
   handler: async (ctx) => {
     //// Read the database as many times as you need here.
@@ -13,12 +13,12 @@ export const memoItems = query({
     
     const user = await ctx.auth.getUserIdentity();
     console.log(user);
-    const memoEntries = await ctx.db
-      .query("memo_list")
+    const workspaceEntries = await ctx.db
+      .query("workspace_list")
       .order("desc")
       .collect();
     return {
-      memoEntries: memoEntries,
+      workspaceEntries: workspaceEntries,
     };
   },
 });

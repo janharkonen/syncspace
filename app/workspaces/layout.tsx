@@ -7,7 +7,7 @@ import Header from "@/components/header/Header";
 
 
 
-export default function SpacesLayout({
+export default function WorkspacesLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;

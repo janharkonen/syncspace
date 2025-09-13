@@ -6,13 +6,13 @@ import { useParams } from "next/navigation";
 
 export default function Home() {
   const { slug } = useParams();
-  const { memoEntries } = useQuery(api.memoFunctions.memoItems) ?? { memoEntries: [] };
+  const { workspaceEntries } = useQuery(api.workspaceFunctions.workspaceItems) ?? { workspaceEntries: [] };
   return (
     <div className="flex flex-col gap-8 max-w-lg mx-auto">
         <h1>{slug}</h1>
-        {memoEntries.map((memoEntry) => (
-          <div key={memoEntry._id}>
-            <h2>{memoEntry.memoname}</h2>
+        {workspaceEntries.map((workspaceEntry) => (
+          <div key={workspaceEntry._id}>
+            <h2>{workspaceEntry.workspacename}</h2>
           </div>
         ))}
     </div>

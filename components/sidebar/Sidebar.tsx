@@ -7,17 +7,17 @@ import { api } from "../../convex/_generated/api";
 import { useRouter, useParams } from "next/navigation";
 
 export default function Sidebar({className}: {className: string}) {
-  const { memoEntries } = useQuery(api.memoFunctions.memoItems) ?? { memoEntries: [] };
+  const { workspaceEntries } = useQuery(api.workspaceFunctions.workspaceItems) ?? { workspaceEntries: [] };
   const router = useRouter();
-  const { spaceId } = useParams<{ spaceId: string }>();
+  const { workspaceId } = useParams<{ workspaceId: string }>();
   return (
     <>
     <div className={cn("text-white h-full sidebar bg-[var(--header-background)] overflow-y-auto border-r-1 border-header-border", className)}>
         <div>
             <div>
-                {memoEntries.map((memoEntry) => (
+                {workspaceEntries.map((workspaceEntry) => (
                     <Button
-                    key={memoEntry._id}
+                    key={workspaceEntry._id}
                         className="
                             w-full 
                             cursor-pointer 
@@ -27,13 +27,13 @@ export default function Sidebar({className}: {className: string}) {
                             text-left
                             justify-start
                         "
-                        variant={spaceId === memoEntry._id ? "sidebarbuttonactive" : "sidebarbutton"}
+                        variant={workspaceId === workspaceEntry._id ? "sidebarbuttonactive" : "sidebarbutton"}
                         onClick={() => { 
-                            router.push(`/spaces/${memoEntry._id}`);
+                            router.push(`/workspaces/${workspaceEntry._id}`);
                         }}
-                        title={memoEntry.memoname}
+                        title={workspaceEntry.workspacename}
                         >
-                        {memoEntry.memoname}
+                        {workspaceEntry.workspacename}
                     </Button>
                 ))}
             </div>
