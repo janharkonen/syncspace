@@ -5,6 +5,10 @@ import {
 } from "convex/react";
 import { api } from "../../convex/_generated/api";
 
+function setActiveMemo(id: string) {
+    console.log(id);
+}
+
 export default function Sidebar({className}: {className: string}) {
   const { memoEntries } = useQuery(api.memoFunctions.memoItems) ?? { memoEntries: [] };
   return (
@@ -22,7 +26,9 @@ export default function Sidebar({className}: {className: string}) {
                             text-ellipsis 
                             whitespace-nowrap
                         "
-                    >
+                        variant="sidebarbutton"
+                        onClick={() => { setActiveMemo(memoEntry._id); }}
+                        >
                         {memoEntry.memoname}
                     </Button>
                 ))}
