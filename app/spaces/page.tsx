@@ -1,13 +1,9 @@
 "use client";
 
-import { useQuery } from "convex/react";
-import { api } from "../../convex/_generated/api";
-
 export default function Home() {
-  const { memoEntries } = useQuery(api.memoFunctions.memoItems) ?? { memoEntries: [] };
   return (
     <div className="flex flex-col gap-8 max-w-lg mx-auto">
-      <h1>Spaces</h1>
+      <h1>Choose a workspace from the sidebar</h1>
     </div>
   );
 }

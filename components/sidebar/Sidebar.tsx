@@ -4,13 +4,12 @@ import {
   useQuery,
 } from "convex/react";
 import { api } from "../../convex/_generated/api";
-
-function setActiveMemo(id: string) {
-    console.log(id);
-}
+import { useRouter, useParams } from "next/navigation";
 
 export default function Sidebar({className}: {className: string}) {
   const { memoEntries } = useQuery(api.memoFunctions.memoItems) ?? { memoEntries: [] };
+  const router = useRouter();
+  const { spaceId } = useParams<{ spaceId: string }>();
   return (
     <>
     <div className={cn("text-white h-full sidebar bg-[var(--header-background)] overflow-y-auto border-r-1 border-header-border", className)}>
@@ -18,7 +17,7 @@ export default function Sidebar({className}: {className: string}) {
             <div>
                 {memoEntries.map((memoEntry) => (
                     <Button
-                        key={memoEntry._id}
+                    key={memoEntry._id}
                         className="
                             w-full 
                             cursor-pointer 
@@ -26,8 +25,10 @@ export default function Sidebar({className}: {className: string}) {
                             text-ellipsis 
                             whitespace-nowrap
                         "
-                        variant="sidebarbutton"
-                        onClick={() => { setActiveMemo(memoEntry._id); }}
+                        variant={spaceId === memoEntry._id ? "sidebarbuttonactive" : "sidebarbutton"}
+                        onClick={() => { 
+                            router.push(`/spaces/${memoEntry._id}`);
+                        }}
                         >
                         {memoEntry.memoname}
                     </Button>
