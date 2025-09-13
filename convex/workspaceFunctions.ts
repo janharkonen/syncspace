@@ -27,6 +27,48 @@ export const workspaceItems = query({
   },
 });
 
+export const workspaceEntries = query({
+
+  args: {
+    workspaceId: v.id("workspace_list"),
+  },
+
+  handler: async (ctx, args) => {
+    const user = await ctx.auth.getUserIdentity();
+    if (!user) {
+      throw new Error("User not authenticated");
+    }
+    //const userId = user.tokenIdentifier.split("|")[1];
+    
+    const workspaceItems = await ctx.db
+      .query("workspace_list")
+      .filter((q) => q.eq(q.field("_id"), args.workspaceId))
+      .collect();
+    
+    if (workspaceItems.length === 0) {
+      return {
+        workspaceEntries: [],
+      }
+    }
+
+    if (workspaceItems.length > 1) {
+      throw new Error("Multiple workspace items found");
+    }
+
+    const workspaceName = workspaceItems[0].workspacename;
+    console.log("workspaceItems[0]", workspaceItems[0])
+    const workspaceEntries = await ctx.db
+      .query("workspace_entries")
+      .filter((q) => q.eq(q.field("workspaceId"), args.workspaceId))
+      .order("desc")
+      .collect();
+    console.log("workspaceEntries", workspaceEntries)
+    return {
+      workspaceEntries: workspaceEntries,
+      workspaceName: workspaceName,
+    };
+  },
+});
 export const createWorkspace = mutation({
 
   args: {
