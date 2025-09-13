@@ -20,9 +20,9 @@ const buttonVariants = cva(
         ghost:
           "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
         sidebarbutton:
-          "hover:bg-accent text-accent-foreground dark:hover:bg-accent/50 rounded-none",
+          "hover:bg-accent text-accent-foreground dark:hover:bg-stone-400 rounded-none",
         sidebarbuttonactive:
-          "bg-red-300 hover:bg-red-400 text-accent-foreground dark:hover:bg-accent/50 rounded-none",
+          "bg-red-300 hover:bg-red-400 text-accent-foreground dark:bg-red-400 dark:hover:bg-red-300 rounded-none",
         link: "text-primary underline-offset-4 hover:underline",
       },
       size: {

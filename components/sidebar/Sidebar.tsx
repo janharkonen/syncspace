@@ -24,11 +24,14 @@ export default function Sidebar({className}: {className: string}) {
                             overflow-hidden 
                             text-ellipsis 
                             whitespace-nowrap
+                            text-left
+                            justify-start
                         "
                         variant={spaceId === memoEntry._id ? "sidebarbuttonactive" : "sidebarbutton"}
                         onClick={() => { 
                             router.push(`/spaces/${memoEntry._id}`);
                         }}
+                        title={memoEntry.memoname}
                         >
                         {memoEntry.memoname}
                     </Button>
