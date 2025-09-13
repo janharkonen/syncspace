@@ -9,16 +9,16 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 
 export default function Sidebar({className}: {className: string}) {
-  const { workspaceEntries } = useQuery(api.workspaceFunctions.workspaceItems) ?? { workspaceEntries: [] };
+  const { workspaceItems } = useQuery(api.workspaceFunctions.workspaceItems) ?? { workspaceItems: [] };
   const router = useRouter();
   const { workspaceId } = useParams<{ workspaceId: string }>();
   return (
     <>
     <div className={cn("text-white h-full sidebar bg-[var(--header-background)] overflow-y-auto border-r-1 border-header-border", className)}>
         <DialogCloseButton />
-        {workspaceEntries.map((workspaceEntry) => (
+        {workspaceItems.map((workspaceItem) => (
             <Button
-            key={workspaceEntry._id}
+            key={workspaceItem._id}
                 className="
                     w-full 
                     cursor-pointer 
@@ -28,13 +28,13 @@ export default function Sidebar({className}: {className: string}) {
                     text-left
                     justify-start
                 "
-                variant={workspaceId === workspaceEntry._id ? "sidebarbuttonactive" : "sidebarbutton"}
+                variant={workspaceId === workspaceItem._id ? "sidebarbuttonactive" : "sidebarbutton"}
                 onClick={() => { 
-                    router.push(`/workspaces/${workspaceEntry._id}`);
+                    router.push(`/workspaces/${workspaceItem._id}`);
                 }}
-                title={workspaceEntry.workspacename}
+                title={workspaceItem.workspacename}
                 >
-                {workspaceEntry.workspacename}
+                {workspaceItem.workspacename}
             </Button>
         ))}
     </div>

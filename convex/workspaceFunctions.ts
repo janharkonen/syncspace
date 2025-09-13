@@ -16,13 +16,13 @@ export const workspaceItems = query({
       throw new Error("User not authenticated");
     }
     const userId = user.tokenIdentifier.split("|")[1];
-    const workspaceEntries = await ctx.db
+    const workspaceItems = await ctx.db
       .query("workspace_list")
       .filter((q) => q.eq(q.field("userId"), userId))
       .order("desc")
       .collect();
     return {
-      workspaceEntries: workspaceEntries,
+      workspaceItems: workspaceItems,
     };
   },
 });
