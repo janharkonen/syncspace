@@ -27,22 +27,26 @@ export const workspaceItems = query({
   },
 });
 
-export const workspaceEntries = query({
-
+export const workspaceEntriesOwn = query({
+  // Get the workspace entries and check that the user is the owner of the workspace
   args: {
     workspaceId: v.id("workspace_list"),
   },
 
   handler: async (ctx, args) => {
+    
+    // Doublecheck if user is authenticated    
     const user = await ctx.auth.getUserIdentity();
     if (!user) {
       throw new Error("User not authenticated");
     }
-    //const userId = user.tokenIdentifier.split("|")[1];
     
+    // Double check that the workspace exists and isn't duplicated AND that the user is the owner
+    const userId = user.tokenIdentifier.split("|")[1];
     const workspaceItems = await ctx.db
       .query("workspace_list")
       .filter((q) => q.eq(q.field("_id"), args.workspaceId))
+      .filter((q) => q.eq(q.field("userId"), userId))
       .collect();
     
     if (workspaceItems.length === 0) {
@@ -55,14 +59,13 @@ export const workspaceEntries = query({
       throw new Error("Multiple workspace items found");
     }
 
-    const workspaceName = workspaceItems[0].workspacename;
-    console.log("workspaceItems[0]", workspaceItems[0])
     const workspaceEntries = await ctx.db
       .query("workspace_entries")
       .filter((q) => q.eq(q.field("workspaceId"), args.workspaceId))
       .order("desc")
       .collect();
-    console.log("workspaceEntries", workspaceEntries)
+    
+    const workspaceName = workspaceItems[0].workspacename;
     return {
       workspaceEntries: workspaceEntries,
       workspaceName: workspaceName,
