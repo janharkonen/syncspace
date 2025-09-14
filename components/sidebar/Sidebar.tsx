@@ -30,7 +30,7 @@ export default function Sidebar({className}: {className: string}) {
                 "
                 variant={workspaceId === workspaceItem._id ? "sidebarbuttonactive" : "sidebarbutton"}
                 onClick={() => { 
-                    router.push(`/workspaces/${workspaceItem._id}`);
+                    router.push(`/myworkspaces/${workspaceItem._id}`);
                 }}
                 title={workspaceItem.workspacename}
                 >
