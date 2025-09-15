@@ -2,10 +2,17 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
+import { Id } from "@/convex/_generated/dataModel";
 
 export default function Workspace({
     workspaceName, workspaceEntries}: 
-    { workspaceName: string, workspaceEntries: any[]}) {
+    { workspaceName: string, workspaceEntries: {
+        _id: Id<"workspace_entries">;
+        _creationTime: number;
+        caption: string;
+        checked: boolean;
+        workspaceId: Id<"workspace_list">;
+    }[] }) {
   
     return (
     <div className="flex flex-col gap-8 max-w-lg mx-auto">
@@ -26,7 +33,13 @@ export default function Workspace({
   );
 }
 
-function WorkspaceEntry({ workspaceEntry }: { workspaceEntry: any }) {
+function WorkspaceEntry({ workspaceEntry }: { workspaceEntry:  {
+    _id: Id<"workspace_entries">;
+    _creationTime: number;
+    caption: string;
+    checked: boolean;
+    workspaceId: Id<"workspace_list">;
+}}) {
     const updateWorkspaceEntryChecked = useMutation(api.workspaceFunctions.updateWorkspaceEntryChecked);
     return (
         <>  

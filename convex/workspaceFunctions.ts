@@ -104,6 +104,7 @@ export const createWorkspace = mutation({
     const workspaceId = await ctx.db.insert("workspace_list", {
       workspacename: args.workspaceName,
       userId: userId,
+      status: "private",
     });
     return workspaceId;
   },

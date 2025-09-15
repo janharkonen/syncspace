@@ -15,6 +15,6 @@ export default function Home() {
     ?? 
     { workspaceEntries: [], workspaceName: "" };
   return (
-    <Workspace workspaceName={workspaceName ?? ""} workspaceEntries={workspaceEntries} />
+    <Workspace workspaceName={workspaceName ?? ""} workspaceEntries={workspaceEntries ?? []} />
   );
 }
