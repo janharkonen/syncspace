@@ -72,6 +72,21 @@ export const workspaceEntriesOwn = query({
     };
   },
 });
+
+export const updateWorkspaceEntryChecked = mutation({
+
+  args: {
+    workspaceEntryId: v.id("workspace_entries"),
+    checked: v.boolean(),
+  },
+
+  handler: async (ctx, args) => {
+    await ctx.db.patch(args.workspaceEntryId, {
+      checked: args.checked,
+    });
+  },
+});
+
 export const createWorkspace = mutation({
 
   args: {
