@@ -15,7 +15,7 @@ export default function Workspace({
     }[] }) {
   
     return (
-    <div className="flex flex-col gap-8 max-w-lg mx-auto">
+    <div className="sm:mt-4 flex flex-col gap-8 max-w-3xl mx-auto">
         <Card>
             <CardHeader>
                 <CardTitle className="text-2xl font-bold">{workspaceName}</CardTitle>
