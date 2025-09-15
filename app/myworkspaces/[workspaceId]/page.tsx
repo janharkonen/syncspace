@@ -4,6 +4,7 @@ import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { useParams } from "next/navigation";
 import { Id } from "@/convex/_generated/dataModel";
+import Workspace from "@/components/workspace/workspace";
 
 export default function Home() {
   const { workspaceId } = useParams<{ workspaceId: string }>();
@@ -14,13 +15,6 @@ export default function Home() {
     ?? 
     { workspaceEntries: [], workspaceName: "" };
   return (
-    <div className="flex flex-col gap-8 max-w-lg mx-auto">
-        <h1>{workspaceName}</h1>
-        {workspaceEntries.map((workspaceEntry) => (
-          <div key={workspaceEntry._id}>
-            <h2>{workspaceEntry.caption}</h2>
-          </div>
-        ))}
-    </div>
+    <Workspace workspaceName={workspaceName ?? ""} workspaceEntries={workspaceEntries} />
   );
 }
