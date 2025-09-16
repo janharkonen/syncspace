@@ -117,6 +117,21 @@ export const updateWorkspaceEntry = mutation({
   },
 });
 
+export const createWorkspaceEntry = mutation({
+
+  args: {
+    workspaceId: v.id("workspace_list"),
+  },
+
+  handler: async (ctx, args) => {
+    await ctx.db.insert("workspace_entries", {
+      caption: "",
+      checked: false,
+      workspaceId: args.workspaceId,
+    });
+  },
+});
+
 export const createWorkspace = mutation({
 
   args: {

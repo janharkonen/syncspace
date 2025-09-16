@@ -17,6 +17,7 @@ export default function Workspace({
         workspaceId: Id<"workspace_list">;
     }[] }) {
         
+    const createWorkspaceEntry = useMutation(api.workspaceFunctions.createWorkspaceEntry);
     const checkedItems = workspaceEntries.filter((workspaceEntry) => workspaceEntry.checked).length;
     return (
     <div className="sm:mt-4 flex flex-col gap-8 max-w-3xl mx-auto">
@@ -26,7 +27,9 @@ export default function Workspace({
                 <CardDescription>{checkedItems} / {workspaceEntries.length} done</CardDescription>
             </CardHeader>
             <CardContent>
-                <Button variant="outline" className="mb-4">+ Add Item</Button>
+                <Button variant="outline" className="mb-4" onClick={() => {
+                    createWorkspaceEntry({ workspaceId: workspaceEntries[0].workspaceId });
+                }}>+ Add Item</Button>
                 {workspaceEntries.map((workspaceEntry) => (
                     <div className="flex flex-row items-center justify-start gap-2" key={workspaceEntry._id}>
                         <WorkspaceEntry workspaceEntry={workspaceEntry} />
