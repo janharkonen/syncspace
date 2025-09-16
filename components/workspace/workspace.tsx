@@ -1,10 +1,11 @@
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { Input } from "@/components/ui/input";
 import { useState, useEffect } from 'react'
+import { Button } from "@/components/ui/button";
 
 export default function Workspace({
     workspaceName, workspaceEntries}: 
@@ -15,14 +16,17 @@ export default function Workspace({
         checked: boolean;
         workspaceId: Id<"workspace_list">;
     }[] }) {
-  
+        
+    const checkedItems = workspaceEntries.filter((workspaceEntry) => workspaceEntry.checked).length;
     return (
     <div className="sm:mt-4 flex flex-col gap-8 max-w-3xl mx-auto">
         <Card>
             <CardHeader>
                 <CardTitle className="text-2xl font-bold">{workspaceName}</CardTitle>
+                <CardDescription>{checkedItems} / {workspaceEntries.length} done</CardDescription>
             </CardHeader>
             <CardContent>
+                <Button variant="sidebarbuttonactive" className="mb-4">+ Add Item</Button>
                 {workspaceEntries.map((workspaceEntry) => (
                     <div className="flex flex-row items-center justify-start gap-2" key={workspaceEntry._id}>
                         <WorkspaceEntry workspaceEntry={workspaceEntry} />
@@ -56,6 +60,7 @@ function WorkspaceEntry({ workspaceEntry }: { workspaceEntry:  {
             <Checkbox 
             key={`${workspaceEntry._id}-key`} 
             id={`${workspaceEntry._id}-id`} 
+            className="size-8 hover:cursor-pointer" 
             onMouseDown={() => {
                 setChecked(!checked);
                 updateWorkspaceEntry({
@@ -63,17 +68,21 @@ function WorkspaceEntry({ workspaceEntry }: { workspaceEntry:  {
                     checked: !checked,
                 });
             }}
-            checked={checked} 
+            checked={checked}
             />
-            <Input className="text-lg " value={caption} onChange={(e) => {
-                setCaption(e.target.value);
-            }}
-            onBlur={() => {
-                updateWorkspaceEntry({
-                    workspaceEntryId: workspaceEntry._id,
-                    caption: caption,
-                });
-            }} />
+            <Input 
+                className={`text-lg focus:bg-white ${checked ? "line-through text-gray-400" : ""}`} 
+                value={caption} 
+                onChange={(e) => {
+                    setCaption(e.target.value);
+                }}
+                onBlur={() => {
+                    updateWorkspaceEntry({
+                        workspaceEntryId: workspaceEntry._id,
+                        caption: caption,
+                    });
+                }} 
+            />
         </>
     );
 }
