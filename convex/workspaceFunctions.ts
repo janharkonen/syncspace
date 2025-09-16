@@ -132,6 +132,17 @@ export const createWorkspaceEntry = mutation({
   },
 });
 
+export const deleteWorkspaceEntry = mutation({
+
+  args: {
+    workspaceEntryId: v.id("workspace_entries"),
+  },
+
+  handler: async (ctx, args) => {
+    await ctx.db.delete(args.workspaceEntryId);
+  },
+});
+
 export const createWorkspace = mutation({
 
   args: {
