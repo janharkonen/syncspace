@@ -80,16 +80,6 @@ export const workspaceEntriesPublic = query({
       .query("workspace_list")
       .filter((q) => q.eq(q.field("_id"), args.workspaceId))
       .collect();
-    
-    if (workspaceItems.length === 0) {
-      return {
-        workspaceEntries: [],
-      }
-    }
-
-    if (workspaceItems.length > 1) {
-      throw new Error("Multiple workspace items found");
-    }
 
     if (workspaceItems[0].status !== "public") {
       return {
