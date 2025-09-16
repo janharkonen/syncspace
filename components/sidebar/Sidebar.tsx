@@ -7,6 +7,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Di
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
+import { Lock, Globe } from "lucide-react";
 
 export default function Sidebar({className}: {className: string}) {
   const { workspaceItems } = useQuery(api.workspaceFunctions.workspaceItems) ?? { workspaceItems: [] };
@@ -26,15 +27,18 @@ export default function Sidebar({className}: {className: string}) {
                     text-ellipsis 
                     whitespace-nowrap
                     text-left
-                    justify-start
+                    justify-between
+
                 "
                 variant={workspaceId === workspaceItem._id ? "sidebarbuttonactive" : "sidebarbutton"}
                 onClick={() => { 
                     router.push(`/myworkspaces/${workspaceItem._id}`);
                 }}
-                title={workspaceItem.workspacename}
+                
                 >
-                {workspaceItem.workspacename}
+                <span title={workspaceItem.workspacename} className="text-sm">{workspaceItem.workspacename}</span>
+              {workspaceItem.status === "private" && <div title="Private"><Lock /></div>}
+              {workspaceItem.status === "public" && <div title="Public"><Globe /></div>}
             </Button>
         ))}
     </div>
