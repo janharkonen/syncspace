@@ -44,21 +44,26 @@ function WorkspaceEntry({ workspaceEntry }: { workspaceEntry:  {
 }}) {
     const updateWorkspaceEntry = useMutation(api.workspaceFunctions.updateWorkspaceEntry);
     const [caption, setCaption] = useState(workspaceEntry.caption)
+    const [checked, setChecked] = useState(workspaceEntry.checked)
     useEffect(() => {
         setCaption(workspaceEntry.caption);
     }, [workspaceEntry.caption]);
+    useEffect(() => {
+        setChecked(workspaceEntry.checked);
+    }, [workspaceEntry.checked]);
     return (
         <>  
             <Checkbox 
             key={`${workspaceEntry._id}-key`} 
             id={`${workspaceEntry._id}-id`} 
             onMouseDown={() => {
+                setChecked(!checked);
                 updateWorkspaceEntry({
                     workspaceEntryId: workspaceEntry._id,
-                    checked: !workspaceEntry.checked,
+                    checked: !checked,
                 });
             }}
-            checked={workspaceEntry.checked} 
+            checked={checked} 
             />
             <Input className="text-lg " value={caption} onChange={(e) => {
                 setCaption(e.target.value);
