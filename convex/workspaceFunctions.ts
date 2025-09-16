@@ -101,16 +101,18 @@ export const workspaceEntriesPublic = query({
     };
   },
 });
-export const updateWorkspaceEntryChecked = mutation({
+export const updateWorkspaceEntry = mutation({
 
   args: {
     workspaceEntryId: v.id("workspace_entries"),
-    checked: v.boolean(),
+    checked: v.optional(v.boolean()),
+    caption: v.optional(v.string()),
   },
 
   handler: async (ctx, args) => {
     await ctx.db.patch(args.workspaceEntryId, {
-      checked: args.checked,
+      ...(args.checked !== undefined ? { checked: args.checked } : {}),
+      ...(args.caption !== undefined ? { caption: args.caption } : {}),
     });
   },
 });

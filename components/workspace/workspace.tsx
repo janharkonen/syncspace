@@ -3,6 +3,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
+import { Input } from "@/components/ui/input";
+import { useState, useEffect } from 'react'
 
 export default function Workspace({
     workspaceName, workspaceEntries}: 
@@ -40,21 +42,33 @@ function WorkspaceEntry({ workspaceEntry }: { workspaceEntry:  {
     checked: boolean;
     workspaceId: Id<"workspace_list">;
 }}) {
-    const updateWorkspaceEntryChecked = useMutation(api.workspaceFunctions.updateWorkspaceEntryChecked);
+    const updateWorkspaceEntry = useMutation(api.workspaceFunctions.updateWorkspaceEntry);
+    const [caption, setCaption] = useState(workspaceEntry.caption)
+    useEffect(() => {
+        setCaption(workspaceEntry.caption);
+    }, [workspaceEntry.caption]);
     return (
         <>  
             <Checkbox 
             key={`${workspaceEntry._id}-key`} 
             id={`${workspaceEntry._id}-id`} 
-            onClick={() => {
-                updateWorkspaceEntryChecked({
+            onMouseDown={() => {
+                updateWorkspaceEntry({
                     workspaceEntryId: workspaceEntry._id,
                     checked: !workspaceEntry.checked,
                 });
             }}
             checked={workspaceEntry.checked} 
             />
-            <h2 className="text-lg">{workspaceEntry.caption}</h2>
+            <Input className="text-lg " value={caption} onChange={(e) => {
+                setCaption(e.target.value);
+            }}
+            onBlur={() => {
+                updateWorkspaceEntry({
+                    workspaceEntryId: workspaceEntry._id,
+                    caption: caption,
+                });
+            }} />
         </>
     );
 }
