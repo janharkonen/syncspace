@@ -84,7 +84,7 @@ function DialogCloseButton( ) {
                 const workspaceId = createWorkspace({ workspaceName: workspaceName });
                 workspaceId.then((workspaceId) => {
                     if (workspaceId) {
-                     router.push(`/workspaces/${workspaceId}`);
+                     router.push(`/myworkspaces/${workspaceId}`);
                     }
                 });
               }}
@@ -97,3 +97,4 @@ function DialogCloseButton( ) {
       </Dialog>
     )
   }
+  
