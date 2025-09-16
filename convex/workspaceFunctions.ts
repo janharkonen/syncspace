@@ -60,9 +60,11 @@ export const workspaceEntriesOwn = query({
       .collect();
     
     const workspaceName : string = workspaceItems[0].workspacename;
+    const workspaceStatus : string = workspaceItems[0].status;
     return {
       workspaceEntries: workspaceEntries,
       workspaceName: workspaceName,
+      workspaceStatus: workspaceStatus,
     };
   },
 });
@@ -84,7 +86,7 @@ export const workspaceEntriesPublic = query({
     if (workspaceItems[0].status !== "public") {
       return {
         workspaceEntries: [],
-        workspaceName: "This workspace is not public",
+        workspaceName: "",
       };
     }
 
@@ -165,3 +167,13 @@ export const createWorkspace = mutation({
     return workspaceId;
   },
 });
+export const updateWorkspace = mutation({
+  args: {
+    workspaceId: v.id("workspace_list"),
+    status: v.optional(v.string()),
+  },
+
+  handler: async (ctx, args) => {
+    await ctx.db.patch(args.workspaceId, { status: args.status });
+  },
+})

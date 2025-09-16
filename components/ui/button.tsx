@@ -23,6 +23,8 @@ const buttonVariants = cva(
           "hover:bg-accent text-accent-foreground dark:hover:bg-stone-400 rounded-none",
         sidebarbuttonactive:
           "bg-red-300 hover:bg-red-400 text-accent-foreground dark:bg-red-400 dark:hover:bg-red-300 rounded-none",
+        publicprivatetoggle:
+          "rounded-full p-2 bg-card border-2 border-card-border hover:bg-stone-300 dark:bg-card dark:hover:bg-stone-700 cursor-pointer",
         link: "text-primary underline-offset-4 hover:underline",
       },
       size: {

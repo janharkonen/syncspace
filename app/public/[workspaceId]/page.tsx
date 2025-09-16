@@ -14,6 +14,9 @@ export default function Home() {
     { workspaceId: workspaceIdType }) 
     ?? 
     { workspaceEntries: [], workspaceName: "" };
+  if (workspaceEntries.length === 0) {
+    return <div className="flex flex-col items-center justify-center h-full">This workspace is not public or does not exist</div>;
+  }
   return (
       <Workspace workspaceName={workspaceName ?? ""} workspaceEntries={workspaceEntries ?? []} />
   );
