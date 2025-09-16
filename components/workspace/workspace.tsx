@@ -26,7 +26,7 @@ export default function Workspace({
                 <CardDescription>{checkedItems} / {workspaceEntries.length} done</CardDescription>
             </CardHeader>
             <CardContent>
-                <Button variant="sidebarbuttonactive" className="mb-4">+ Add Item</Button>
+                <Button variant="outline" className="mb-4">+ Add Item</Button>
                 {workspaceEntries.map((workspaceEntry) => (
                     <div className="flex flex-row items-center justify-start gap-2" key={workspaceEntry._id}>
                         <WorkspaceEntry workspaceEntry={workspaceEntry} />
@@ -60,7 +60,7 @@ function WorkspaceEntry({ workspaceEntry }: { workspaceEntry:  {
             <Checkbox 
             key={`${workspaceEntry._id}-key`} 
             id={`${workspaceEntry._id}-id`} 
-            className="size-8 hover:cursor-pointer" 
+            className="size-8 hover:cursor-pointer bg-secondary dark:bg-secondary" 
             onMouseDown={() => {
                 setChecked(!checked);
                 updateWorkspaceEntry({
@@ -71,7 +71,7 @@ function WorkspaceEntry({ workspaceEntry }: { workspaceEntry:  {
             checked={checked}
             />
             <Input 
-                className={`text-lg focus:bg-white ${checked ? "line-through text-gray-400" : ""}`} 
+                className={`text-lg bg-secondary dark:bg-secondary ${checked ? "line-through text-gray-400" : ""}`} 
                 value={caption} 
                 onChange={(e) => {
                     setCaption(e.target.value);
