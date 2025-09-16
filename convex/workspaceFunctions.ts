@@ -41,22 +41,16 @@ export const workspaceEntriesOwn = query({
       throw new Error("User not authenticated");
     }
     
-    // Double check that the workspace exists and isn't duplicated AND that the user is the owner
+    // Double check that the workspace exists AND that the user is the owner
     const userId = user.tokenIdentifier.split("|")[1];
     const workspaceItems = await ctx.db
       .query("workspace_list")
       .filter((q) => q.eq(q.field("_id"), args.workspaceId))
       .filter((q) => q.eq(q.field("userId"), userId))
       .collect();
-    
-    if (workspaceItems.length === 0) {
-      return {
-        workspaceEntries: [],
-      }
-    }
 
-    if (workspaceItems.length > 1) {
-      throw new Error("Multiple workspace items found");
+    if (workspaceItems.length === 0) {
+      throw new Error("Workspace not found or not owned by user");
     }
 
     const workspaceEntries = await ctx.db
@@ -73,6 +67,50 @@ export const workspaceEntriesOwn = query({
   },
 });
 
+export const workspaceEntriesPublic = query({
+  // Get the workspace entries and check that the user is the owner of the workspace
+  args: {
+    workspaceId: v.id("workspace_list"),
+  },
+
+  handler: async (ctx, args) => {
+    
+    // Double check that the workspace exists and isn't duplicated and that it is indeed public
+    const workspaceItems = await ctx.db
+      .query("workspace_list")
+      .filter((q) => q.eq(q.field("_id"), args.workspaceId))
+      .collect();
+    
+    if (workspaceItems.length === 0) {
+      return {
+        workspaceEntries: [],
+      }
+    }
+
+    if (workspaceItems.length > 1) {
+      throw new Error("Multiple workspace items found");
+    }
+
+    if (workspaceItems[0].status !== "public") {
+      return {
+        workspaceEntries: [],
+        workspaceName: "This workspace is not public",
+      };
+    }
+
+    const workspaceEntries = await ctx.db
+      .query("workspace_entries")
+      .filter((q) => q.eq(q.field("workspaceId"), args.workspaceId))
+      .order("desc")
+      .collect();
+    
+    const workspaceName : string = workspaceItems[0].workspacename;
+    return {
+      workspaceEntries: workspaceEntries,
+      workspaceName: workspaceName,
+    };
+  },
+});
 export const updateWorkspaceEntryChecked = mutation({
 
   args: {

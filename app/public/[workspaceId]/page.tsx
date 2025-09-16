@@ -10,7 +10,7 @@ export default function Home() {
   const { workspaceId } = useParams<{ workspaceId: string }>();
   const workspaceIdType = workspaceId as Id<"workspace_list">;
   const { workspaceEntries, workspaceName } = useQuery(
-    api.workspaceFunctions.workspaceEntriesOwn, 
+    api.workspaceFunctions.workspaceEntriesPublic, 
     { workspaceId: workspaceIdType }) 
     ?? 
     { workspaceEntries: [], workspaceName: "" };
