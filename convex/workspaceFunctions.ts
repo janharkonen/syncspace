@@ -1,10 +1,6 @@
 import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
 
-// Write your Convex functions in any file inside this directory (`convex`).
-// See https://docs.convex.dev/functions for more.
-
-// You can read data from the database via a query:
 export const workspaceItems = query({
 
   handler: async (ctx) => {
@@ -26,7 +22,6 @@ export const workspaceItems = query({
     };
   },
 });
-
 export const workspaceEntriesOwn = query({
   // Get the workspace entries and check that the user is the owner of the workspace
   args: {
@@ -68,7 +63,6 @@ export const workspaceEntriesOwn = query({
     };
   },
 });
-
 export const workspaceEntriesPublic = query({
   // Get the workspace entries and check that the user is the owner of the workspace
   args: {
@@ -118,7 +112,6 @@ export const updateWorkspaceEntry = mutation({
     });
   },
 });
-
 export const createWorkspaceEntry = mutation({
 
   args: {
@@ -133,7 +126,6 @@ export const createWorkspaceEntry = mutation({
     });
   },
 });
-
 export const deleteWorkspaceEntry = mutation({
 
   args: {
@@ -144,7 +136,6 @@ export const deleteWorkspaceEntry = mutation({
     await ctx.db.delete(args.workspaceEntryId);
   },
 });
-
 export const createWorkspace = mutation({
 
   args: {

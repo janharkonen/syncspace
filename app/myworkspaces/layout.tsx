@@ -16,9 +16,7 @@ export default function WorkspacesLayout({
   <>
   
   <Authenticated>
-    <Authenticated>
-      <Header />
-    </Authenticated>
+    <Header />
     <div className="flex flex-row h-full">
       <Sidebar className="flex-none w-64"/>
       <div className="flex-grow">

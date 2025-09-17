@@ -9,7 +9,7 @@ export default clerkMiddleware(async (auth, req) => {
 
   const url = new URL(req.url);
   const pathname = url.pathname;
-  if (!isAuthenticated && pathname === "/myworkspaces") {
+  if (!isAuthenticated && pathname.startsWith("/myworkspaces")) {
     return NextResponse.redirect(new URL('/', req.url))
   } else if (isAuthenticated && pathname === "/") {
     return NextResponse.redirect(new URL('/myworkspaces', req.url))
