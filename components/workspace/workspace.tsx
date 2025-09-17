@@ -78,7 +78,7 @@ function WorkspaceEntry({ workspaceEntry }: { workspaceEntry:  {
             checked={checked}
             />
             <Input 
-                className={`text-lg bg-secondary dark:bg-secondary ${checked ? "line-through text-gray-400" : ""}`} 
+                className={`sm:text-lg text-sm bg-secondary dark:bg-secondary ${checked ? "line-through text-gray-400" : ""}`} 
                 value={caption} 
                 onChange={(e) => {
                     setCaption(e.target.value);
