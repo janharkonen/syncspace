@@ -4,6 +4,11 @@ import { Authenticated, Unauthenticated } from "convex/react";
 import Sidebar from "@/components/sidebar/Sidebar";
 import SignInForm from "@/components/signinform/SignInForm";
 import Header from "@/components/header/Header";
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from "@/components/ui/resizable"
 
 
 
@@ -18,10 +23,17 @@ export default function WorkspacesLayout({
   <Authenticated>
     <Header />
     <div className="flex flex-row h-full">
-      <Sidebar className="flex-none w-64"/>
-      <div className="flex-grow">
-        {children}
-      </div>
+      <ResizablePanelGroup direction="horizontal">
+        <ResizablePanel defaultSize={16}>
+          <Sidebar className="flex-none w-full"/>
+        </ResizablePanel>
+        <ResizableHandle withHandle />
+        <ResizablePanel>
+          <div className="flex-grow">
+            {children}
+          </div>
+        </ResizablePanel>
+      </ResizablePanelGroup>
     </div>
   </Authenticated>
   <Unauthenticated>
