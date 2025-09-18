@@ -8,8 +8,6 @@ import Workspace from "@/components/workspace/workspace";
 import { Button } from "@/components/ui/button";
 import { Lock, Globe, ArrowLeft } from "lucide-react";
 import Sidebar from "@/components/sidebar/Sidebar";
-import { Authenticated } from "convex/react";
-import Header from "@/components/header/Header";
 import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from "@/components/ui/resizable";
 import { useRouter } from "next/navigation";
 
@@ -27,8 +25,6 @@ export default function Home() {
   const router = useRouter();
   return (
   <>
-    <Authenticated>
-      <Header/>
       {/* Desktop view */}
       <div className="flex flex-row h-full">
         <ResizablePanelGroup direction="horizontal">
@@ -62,7 +58,6 @@ export default function Home() {
           </ResizablePanel>
         </ResizablePanelGroup>
       </div>
-    </Authenticated>
   </>
   );
 }

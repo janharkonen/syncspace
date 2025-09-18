@@ -3,15 +3,11 @@
 import { ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
 
 import { ResizableHandle } from "@/components/ui/resizable";
-import { Authenticated } from "convex/react";
-import Header from "@/components/header/Header";
 import Sidebar from "@/components/sidebar/Sidebar";
 
 export default function Home() {
   return (
   <>
-    <Authenticated>
-      <Header/>
       {/* Desktop view */}
       <div className="hidden sm:flex flex-row h-full">
         <ResizablePanelGroup direction="horizontal">
@@ -30,7 +26,6 @@ export default function Home() {
       </div>
       {/* Mobile view */}
       <Sidebar className="sm:hidden flex flex-col w-full"/>
-    </Authenticated>
   </>
   );
 }

@@ -1,5 +1,8 @@
 "use client";
 
+import { Authenticated } from "convex/react";
+import Header from "@/components/header/Header";
+
 export default function WorkspacesLayout({
   children,
 }: Readonly<{
@@ -7,7 +10,10 @@ export default function WorkspacesLayout({
 }>) {
   return (
     <>
+    <Authenticated>
+      <Header/>
     {children}
+    </Authenticated>
     </>
   );
 }
