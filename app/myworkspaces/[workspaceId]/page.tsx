@@ -33,7 +33,7 @@ export default function Home() {
           </ResizablePanel>
           <ResizableHandle withHandle />
           <ResizablePanel>
-            <div className="flex-grow">
+            <div className="flex-grow overflow-y-auto h-full">
               <div className="flex flex-col">
                 <Button 
                 variant="default" 
