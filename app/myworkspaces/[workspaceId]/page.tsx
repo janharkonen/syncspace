@@ -13,6 +13,16 @@ import {
   ResizablePanel,
   ResizableHandle,
 } from "@/components/ui/resizable";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+  DialogClose,
+} from "@/components/ui/dialog";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
@@ -63,16 +73,39 @@ export default function Home() {
                     {workspaceStatus === "public" ? <Globe /> : <Lock />}
                   </Button>
                 </div>
-                <Button
-                  variant="destructive"
-                  className="m-4 w-12 h-12"
-                  onClick={async () => {
-                    await deleteWorkspace({ workspaceId: workspaceIdType });
-                    router.push(`/myworkspaces`);
-                  }}
-                >
-                  <Trash2 />
-                </Button>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button variant="destructive" className="m-4 w-12 h-12">
+                      <Trash2 />
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>Delete Workspace</DialogTitle>
+                      <DialogDescription>
+                        Are you sure you want to delete this workspace? This
+                        action cannot be undone and will permanently delete all
+                        entries in this workspace.
+                      </DialogDescription>
+                    </DialogHeader>
+                    <DialogFooter>
+                      <DialogClose asChild>
+                        <Button variant="outline">Cancel</Button>
+                      </DialogClose>
+                      <Button
+                        variant="destructive"
+                        onClick={async () => {
+                          router.push(`/myworkspaces`);
+                          await deleteWorkspace({
+                            workspaceId: workspaceIdType,
+                          });
+                        }}
+                      >
+                        Delete
+                      </Button>
+                    </DialogFooter>
+                  </DialogContent>
+                </Dialog>
               </div>
               <Workspace
                 workspaceName={workspaceName ?? ""}
