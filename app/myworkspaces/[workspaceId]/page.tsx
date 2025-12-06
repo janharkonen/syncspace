@@ -95,8 +95,8 @@ export default function Home() {
                       <Button
                         variant="destructive"
                         onClick={async () => {
-                          router.push(`/myworkspaces`);
-                          await deleteWorkspace({
+                          await router.push(`/myworkspaces`);
+                          deleteWorkspace({
                             workspaceId: workspaceIdType,
                           });
                         }}
