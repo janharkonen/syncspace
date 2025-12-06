@@ -5,7 +5,7 @@ export const workspaceItems = query({
   handler: async (ctx) => {
     //// Read the database as many times as you need here.
     //// See https://docs.convex.dev/database/reading-data.
-    
+
     const user = await ctx.auth.getUserIdentity();
     if (!user) {
       throw new Error("User not authenticated");
@@ -34,7 +34,7 @@ export const workspaceEntriesOwn = query({
     if (!user) {
       throw new Error("User not authenticated");
     }
-    
+
     // Double check that the workspace exists AND that the user is the owner
     const userId = user.tokenIdentifier.split("|")[1];
     const workspaceItems = await ctx.db
@@ -161,4 +161,41 @@ export const updateWorkspace = mutation({
   handler: async (ctx, args) => {
     await ctx.db.patch(args.workspaceId, { status: args.status });
   },
-})
+});
+
+export const deleteWorkspace = mutation({
+  args: {
+    workspaceId: v.id("workspace_list"),
+  },
+  returns: v.null(),
+
+  handler: async (ctx, args) => {
+    // Verify user is authenticated and owns the workspace
+    const user = await ctx.auth.getUserIdentity();
+    if (!user) {
+      throw new Error("User not authenticated");
+    }
+
+    const userId = user.tokenIdentifier.split("|")[1];
+    const workspace = await ctx.db.get(args.workspaceId);
+
+    if (!workspace || workspace.userId !== userId) {
+      throw new Error("Workspace not found or not owned by user");
+    }
+
+    // Delete all workspace entries first
+    const workspaceEntries = await ctx.db
+      .query("workspace_entries")
+      .filter((q) => q.eq(q.field("workspaceId"), args.workspaceId))
+      .collect();
+
+    for (const entry of workspaceEntries) {
+      await ctx.db.delete(entry._id);
+    }
+
+    // Then delete the workspace itself
+    await ctx.db.delete(args.workspaceId);
+
+    return null;
+  },
+});
