@@ -53,6 +53,15 @@ export const workspaceEntriesOwn = query({
       .order("desc")
       .collect();
 
+    if (workspaceEntries.length === 0) {
+      return {
+        workspaceEntries: [],
+        workspaceName: "",
+        workspaceStatus: "",
+      };
+    }
+
+    console.log(workspaceEntries);
     const workspaceName: string = workspaceItems[0].workspacename;
     const workspaceStatus: string = workspaceItems[0].status;
     return {
