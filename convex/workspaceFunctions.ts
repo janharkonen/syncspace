@@ -2,7 +2,6 @@ import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
 
 export const workspaceItems = query({
-
   handler: async (ctx) => {
     //// Read the database as many times as you need here.
     //// See https://docs.convex.dev/database/reading-data.
@@ -22,6 +21,7 @@ export const workspaceItems = query({
     };
   },
 });
+
 export const workspaceEntriesOwn = query({
   // Get the workspace entries and check that the user is the owner of the workspace
   args: {
@@ -29,8 +29,7 @@ export const workspaceEntriesOwn = query({
   },
 
   handler: async (ctx, args) => {
-    
-    // Doublecheck if user is authenticated    
+    // Doublecheck if user is authenticated
     const user = await ctx.auth.getUserIdentity();
     if (!user) {
       throw new Error("User not authenticated");
@@ -53,9 +52,9 @@ export const workspaceEntriesOwn = query({
       .filter((q) => q.eq(q.field("workspaceId"), args.workspaceId))
       .order("desc")
       .collect();
-    
-    const workspaceName : string = workspaceItems[0].workspacename;
-    const workspaceStatus : string = workspaceItems[0].status;
+
+    const workspaceName: string = workspaceItems[0].workspacename;
+    const workspaceStatus: string = workspaceItems[0].status;
     return {
       workspaceEntries: workspaceEntries,
       workspaceName: workspaceName,
@@ -70,7 +69,6 @@ export const workspaceEntriesPublic = query({
   },
 
   handler: async (ctx, args) => {
-    
     // Double check that the workspace exists and isn't duplicated and that it is indeed public
     const workspaceItems = await ctx.db
       .query("workspace_list")
@@ -89,8 +87,8 @@ export const workspaceEntriesPublic = query({
       .filter((q) => q.eq(q.field("workspaceId"), args.workspaceId))
       .order("desc")
       .collect();
-    
-    const workspaceName : string = workspaceItems[0].workspacename;
+
+    const workspaceName: string = workspaceItems[0].workspacename;
     return {
       workspaceEntries: workspaceEntries,
       workspaceName: workspaceName,
@@ -98,7 +96,6 @@ export const workspaceEntriesPublic = query({
   },
 });
 export const updateWorkspaceEntry = mutation({
-
   args: {
     workspaceEntryId: v.id("workspace_entries"),
     checked: v.optional(v.boolean()),
@@ -113,7 +110,6 @@ export const updateWorkspaceEntry = mutation({
   },
 });
 export const createWorkspaceEntry = mutation({
-
   args: {
     workspaceId: v.id("workspace_list"),
   },
@@ -127,7 +123,6 @@ export const createWorkspaceEntry = mutation({
   },
 });
 export const deleteWorkspaceEntry = mutation({
-
   args: {
     workspaceEntryId: v.id("workspace_entries"),
   },
@@ -137,7 +132,6 @@ export const deleteWorkspaceEntry = mutation({
   },
 });
 export const createWorkspace = mutation({
-
   args: {
     workspaceName: v.string(),
   },

@@ -7,7 +7,6 @@ export default defineSchema({
     checked: v.boolean(),
     workspaceId: v.id("workspace_list"),
   }),
-
   workspace_list: defineTable({
     status: v.string(),
     userId: v.string(),
