@@ -44,7 +44,11 @@ export const workspaceEntriesOwn = query({
       .collect();
 
     if (workspaceItems.length === 0) {
-      throw new Error("Workspace not found or not owned by user");
+      return {
+        workspaceEntries: [],
+        workspaceName: "",
+        workspaceStatus: "",
+      };
     }
 
     const workspaceEntries = await ctx.db
